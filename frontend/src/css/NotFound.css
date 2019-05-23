@@ -1,0 +1,5 @@
+.notFound{
+    height: 1000px;
+    width: 2000px;
+    background: url("../components/notfound.png");
+}
