@@ -2,7 +2,7 @@ package openway.model;
 import java.util.Date;
 
 public class Form {
-    private String id_client;
+    private int id_client;
     private String first_name;
     private String last_name;
     private String email;
@@ -11,7 +11,8 @@ public class Form {
     private Interests interests;
     private String comment;
     private String about_knowledge;
-    private boolean open_house;
+    private boolean open_house_yes;
+    private boolean open_house_no;
     private String university;
     private String faculty;
     private String department;
