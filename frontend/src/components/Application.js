@@ -4,23 +4,49 @@ import './../css/Application.css'
 class Application extends Component {
     constructor(props) {
         super(props);
-        this.state = {value: ''};
+        this.state = {
+            first_name: '',
+            last_name: '',
+        }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
-        this.setState({value: event.target.value});
+        this.setState({[event.target.name]: event.target.value});
     }
 
     handleSubmit(event) {
-        alert('Заявка пользователя: ' + this.state.value);
         event.preventDefault();
+        const { first_name, last_name } = this.state;
+        fetch('http://localhost:9091', {
+                method: 'POST',
+                body:JSON.stringify({
+                    first_name,
+                    last_name,
+                })
+            }
+        )
+    }
+
+    getInfo(){
+        fetch('http://localhost:9091', {
+            method: 'GET'
+        }).then(res => res.json()).then(res => this.setState({
+            first_name: res.first_name,
+            last_name: res.last_name
+        }))
+    }
+
+    componentDidMount() {
+
     }
 
     render() {
+        const { first_name, last_name } = this.state;
         return (
+            <div>
             <form className="form" onSubmit={this.handleSubmit}>
                 <h2>Заявка на поступление в Летнюю Школу OpenWay</h2>
                 <text className="text">
@@ -32,30 +58,31 @@ class Application extends Component {
                 <div className="option">
                     Имя *:<br/>
                     <div className="inline_div">
-                            <input id="first_name_input" className="input_field" type="text" value={this.state.value}
+                            <input id="first_name_input" className="input_field" type="text" name="first_name" value={first_name}
                                    onChange={this.handleChange}/><br/>
-                        <label for="first_name_input" className="firstName">
+                        <label htmlFor="first_name_input" className="firstName">
                             First Name
                         </label>
                     </div>
                     <div className="inline_div">
-                            <input id="last_name_input" className="input_field" type="text"/><br/>
-                        <label for="last_name_input" className="form_item_lastName">
+                            <input id="last_name_input" className="input_field" type="text" name="last_name" value={last_name}
+                                   onChange={this.handleChange}/><br/>
+                        <label htmlFor="last_name_input" className="form_item_lastName">
                             Last Name
                         </label>
                     </div>
                 </div>
                 <div className="option">
                     E-mail *:<br/>
-                    <input className="input_field" type="text"/>
+                    <input className="input_field" type="email" name="email"/>
                 </div>
                 <div className="option">
                     Дата рождения *<br/>
-                    <input className="input_field" type="text"/>
+                    <input className="input_field" type="text" name="birthday"/>
                 </div>
                 <div className="option">
                     Мобильный телефон<br/>
-                    <input className="input_field" type="text"/>
+                    <input className="input_field" type="tel" name="phone"/>
                 </div>
                 <div className="option">
                     <div className="title">Чем Вам было бы интересно заниматься? *</div>
@@ -110,43 +137,43 @@ class Application extends Component {
                 </div>
                 <div className="option">
                     Ваши комментарии<br/>
-                    <textarea className="textarea_field"> </textarea>
+                    <textarea className="textarea_field" name="comments"> </textarea>
                 </div>
                 <div className="option">
                     Расскажите о своих знаниях компьютерных технологий, прикладного ПО,
                     языков программирования: *<br/>
-                    <textarea className="textarea_field"> </textarea>
+                    <textarea className="textarea_field" name="knowledge"> </textarea>
                 </div>
                 <div className="option">
                     Я планирую прийти на день открытых дверей и послушать презентацию Школы<br/>
                     <div className="checkbox_option">
-                        <input type="checkbox" name="yes" value="Да"/>
+                        <input type="checkbox" name="checkbox_yes" value="Да"/>
                         Да
                     </div>
                     <div className="checkbox_option">
-                        <input type="checkbox" name="no" value="Нет"/>
+                        <input type="checkbox" name="checkbox_no" value="Нет"/>
                         Нет
                     </div>
                 </div>
                 <div className="option">
                     Университет *<br/>
-                    <input className="input_field" type="text"/>
+                    <input className="input_field" type="text" name="university"/>
                 </div>
                 <div className="option">
                     Факультет *<br/>
-                    <input className="input_field" type="text"/>
+                    <input className="input_field" type="text" name="faculty"/>
                 </div>
                 <div className="option">
                     Кафедра *<br/>
-                    <input className="input_field" type="text"/>
+                    <input className="input_field" type="text" name="department"/>
                 </div>
                 <div className="option">
                     Год поступления
-                    <input className="input_field" type="text"/>
+                    <input className="input_field" type="text" name="yearAdmission"/>
                 </div>
                 <div className="option">
                     Уровень английского языка *<br/>
-                    <select value={this.state.value} onChange={this.handleChange}>
+                    <select name="select_level" value={this.state.value} onChange={this.handleChange}>
                         <option value="Elementary">Elementary</option>
                         <option value="Pre-Intermediate">Pre-Intermediate</option>
                         <option value="Intermediate">Pre-Intermediate</option>
@@ -156,21 +183,23 @@ class Application extends Component {
                 </div>
                 <div className="option">
                     Опыт работы (если имеется)<br/>
-                    <textarea className="textarea_field"> </textarea>
+                    <textarea className="textarea_field" name="experience"> </textarea>
                 </div>
                 <div className="option">
                     Откуда Вы узнали о Летней школе?<br/>
-                    <input className="input_field" type="text"/>
+                    <input className="input_field" type="text" name="how_know"/>
                 </div>
-                <div className="option">
-                    <input type="checkbox" name="agree" value="agree"/>
+                <div id="end" className="option">
+                    <input type="checkbox" name="checkbox_agree" value="agree"/>
                     Отправляя эту форму, я соглашаюсь на обработку своих персональных данных, согласно с политике
                     Конфиденциальности OpenWay
                 </div>
-                <input className="option" type="submit" value="Отправить заявку"/>
+                <input id="ajaxButton" className="option" type="submit" name="button_submit" value="Отправить заявку"/>
                 <br/>
                 <br/>
             </form>
+                <input type="submit" value="Получить инфу" onSubmit={this.getInfo}/>
+            </div>
         );
     }
 }

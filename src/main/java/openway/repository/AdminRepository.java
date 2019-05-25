@@ -1,5 +1,4 @@
 package openway.repository;
-
 import openway.model.Admin;
 import org.springframework.data.jpa.repository.JpaRepository;
 
