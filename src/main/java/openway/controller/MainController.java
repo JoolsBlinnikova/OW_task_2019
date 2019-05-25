@@ -1,32 +1,19 @@
 package openway.controller;
 
-import openway.service.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import openway.service.FormService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
-
 
 @RestController
 public class MainController {
 
-    private final AdminService adminService;
+    private final FormService formService;
 
-    @Autowired
-    public MainController(AdminService adminService) {
-        this.adminService = adminService;
+    public MainController(FormService formService) {
+        this.formService = formService;
     }
 
-/*    @GetMapping("/start")
-    public String getStartPage(Model model) {
-        model.addAttribute("admin",adminService.getByLogin("jools"));
-        return "index";
-    }*/
-
-//    @PostMapping("submitForm")
-//    public String submit(@RequestParam String lastname,firstname, ){
-//        adminService.
-//    }
+    @PostMapping("/appliers")
+    void newItem(@RequestBody String newItem){
+        formService.createNewForm(newItem);
+    }
 }

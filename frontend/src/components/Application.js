@@ -20,7 +20,7 @@ class Application extends Component {
     handleSubmit(event) {
         event.preventDefault();
         const { first_name, last_name } = this.state;
-        fetch('http://localhost:9091', {
+        fetch('http://localhost:9091/appliers', {
                 method: 'POST',
                 body:JSON.stringify({
                     first_name,
@@ -31,7 +31,7 @@ class Application extends Component {
     }
 
     getInfo(){
-        fetch('http://localhost:9091', {
+        fetch('http://localhost:9091/appliers', {
             method: 'GET'
         }).then(res => res.json()).then(res => this.setState({
             first_name: res.first_name,

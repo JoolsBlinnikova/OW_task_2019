@@ -10,7 +10,7 @@ import java.util.Date;
 @Table(name = "forms")
 public class Form {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_client;
     private String first_name;
     private String last_name;
@@ -29,4 +29,13 @@ public class Form {
 //    private String english_level;
 //    private String experience;
 //    private String how_know;
+
+
+    public Form() {
+    }
+
+    public Form(String first_name, String last_name) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+    }
 }
