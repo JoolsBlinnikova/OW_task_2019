@@ -18,6 +18,7 @@ public class MainController {
         this.formService = formService;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/appliers")
     void newItem(@RequestBody String newItem) {
         formService.createNewForm(newItem);

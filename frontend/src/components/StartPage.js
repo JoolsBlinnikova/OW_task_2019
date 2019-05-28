@@ -30,8 +30,8 @@ class StartPage extends Component {
             }
         );
         if (login === "jools") {
-            window.location = "/admin"
-        }
+             window.location = "/admin"
+         }
     }
 
     componentDidMount() {
@@ -42,6 +42,11 @@ class StartPage extends Component {
         function applyToOpenWay() {
             window.location = "/appliers"
         }
+        function applyToOpenWay() {
+            window.location = "/appliers"
+        }
+
+
 
         const {login, password} = this.state;
         return (
@@ -54,6 +59,7 @@ class StartPage extends Component {
                     <input className="input" type="password" placeholder="password" name="password"
                            value={password}
                            onChange={this.handleChange}/><br/>
+
                     <input type="submit" name="buttonLogin" className="input"
                            value="Войти как администратор"/>
                 </form>
