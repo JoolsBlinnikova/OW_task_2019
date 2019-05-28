@@ -5,7 +5,6 @@ class NotFoundComponent extends Component {
     render() {
         return (
             <div className="notFound">
-
             </div>
         )
     }
