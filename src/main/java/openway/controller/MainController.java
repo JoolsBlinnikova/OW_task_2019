@@ -20,8 +20,7 @@ public class MainController {
 
     @PostMapping("/appliers")
     void newItem(@RequestBody String newItem) {
-        //formService.createNewForm(newItem);
-        formService.deleteAll();
+        formService.createNewForm(newItem);
         logger.info("create a new application(called createNewForm(String newItem))");
     }
 
@@ -32,8 +31,8 @@ public class MainController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/getOne")
-    Form getForm(){
-        return formService.getFormById(10);
+    @GetMapping("/listId")
+    List<Integer> getListOfId(){
+        return formService.listOfIdClients();
     }
 }
