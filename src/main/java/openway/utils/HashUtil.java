@@ -8,7 +8,6 @@ import javax.crypto.spec.PBEKeySpec;
 import java.security.SecureRandom;
 
 
-
 public class HashUtil {
 
     // The higher the number of iterations the more

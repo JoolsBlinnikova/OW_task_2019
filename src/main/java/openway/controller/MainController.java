@@ -50,6 +50,4 @@ public class MainController {
         logger.info("check auth");
         return adminService.authentication(auth);
     }
-
-
 }

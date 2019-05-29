@@ -8,26 +8,32 @@ import openway.utils.HashUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.logging.Logger;
+
 @Service
 public class AdminServiceImpl implements AdminService {
 
     private final AdminRepository adminRepository;
+
+    final static private Logger logger = Logger.getLogger(AdminServiceImpl.class.getName());
 
     @Autowired
     public AdminServiceImpl(AdminRepository adminRepository) {
         this.adminRepository = adminRepository;
     }
 
-
     @Override
     public AdminVO getAdminVO(String adminJson) {
+        logger.info("called getAdminVO()");
         Gson g = new Gson();
-        AdminVO formVO = g.fromJson(adminJson, AdminVO.class);
-        return formVO;
+        AdminVO adminVO = g.fromJson(adminJson, AdminVO.class);
+        logger.info("parse json and get admin value object");
+        return adminVO;
     }
 
     @Override
-    public boolean authentication(String auth){
+    public boolean authentication(String auth) {
+        logger.info("called authentication()");
         AdminVO adminVO = getAdminVO(auth);
         Admin admin = adminRepository.findAdminByLogin(adminVO.getLogin());
         try {
@@ -35,6 +41,7 @@ public class AdminServiceImpl implements AdminService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        logger.info("check entered data from start page");
         return false;
     }
 }

@@ -2,7 +2,7 @@ body {
     margin-top: 1%;
 }
 
-.startLogo{
+.startLogo {
     margin-left: 20%;
 }
 
@@ -11,7 +11,7 @@ body {
     margin-left: 40%;
 }
 
-.input{
+.input {
     margin-top: 1%;
     width: 300px;
 }
@@ -20,4 +20,11 @@ body {
     margin-top: 2%;
     margin-left: 40%;
     width: 300px
+}
+
+.errorMsg {
+    fontSize: 30;
+    background: salmon;
+    width: 300px;
+    font-weight: bold;
 }

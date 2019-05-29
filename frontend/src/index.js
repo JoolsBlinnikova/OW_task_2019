@@ -9,7 +9,7 @@ import StartPage from './components/StartPage'
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
-            <Route exact path="/"
+            <Route exact path="/login"
                    render={() => <StartPage/>}
             />
             <Route exact path="/admin"

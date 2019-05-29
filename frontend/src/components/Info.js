@@ -88,6 +88,7 @@ class Info extends Component {
         this.getListOfId();
         let array = [];
         let textOfInterests = '';
+        let textOpenHouse ='Нет'
         for (let i = 0; i < this.state.forms.length; i++) {
             if (this.state.id == this.state.forms[i].id_client) {
                 if (this.state.forms[i].analysis === true)
@@ -115,6 +116,9 @@ class Info extends Component {
                 if (this.state.forms[i].other === true)
                     textOfInterests += "Другое; ";
 
+                if(this.state.forms[i].open_house === true)
+                    textOpenHouse = "Да";
+
                 array.push({
                     id: this.state.forms[i].id_client,
                     first_name: this.state.forms[i].first_name,
@@ -125,7 +129,7 @@ class Info extends Component {
                     interests: textOfInterests,
                     comment: this.state.forms[i].comment,
                     about_knowledge: this.state.forms[i].about_knowledge,
-                    open_house: this.state.forms[i].open_house,
+                    open_house: textOpenHouse,
                     university: this.state.forms[i].university,
                     faculty: this.state.forms[i].faculty,
                     department: this.state.forms[i].department,

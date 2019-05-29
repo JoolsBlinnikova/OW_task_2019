@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './../css/StartPage.css';
 import startLogo from './startlogo.png';
+import {removePropertiesDeep} from "@babel/types";
 
 class StartPage extends Component {
 
@@ -16,7 +17,7 @@ class StartPage extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.checkAdmin = this.checkAdmin.bind(this);
+        this.applyToOpenWay = this.applyToOpenWay.bind(this);
     }
 
     handleChange(event) {
@@ -45,23 +46,17 @@ class StartPage extends Component {
         })
     }
 
-    checkAdmin() {
-        if(this.state.login === this.state.data[0].login) {
-            window.location = "/admin"
-        }
+    componentDidMount() {
     }
 
-    componentDidMount() {
-
+    applyToOpenWay(event) {
+        event.preventDefault();
+        window.location = "/appliers"
     }
 
     render() {
-
-        function applyToOpenWay() {
-            window.location = "/appliers"
-        }
-
         const {login, password} = this.state;
+
         return (
             <div>
                 <img src={startLogo} className="startLogo" height="150"/>
@@ -76,8 +71,7 @@ class StartPage extends Component {
                     <input type="submit" name="buttonLogin" className="input btn btn-secondary"
                            value="Войти как администратор"/>
                 </form>
-                <button type="button" onClick={applyToOpenWay} className="buttonNewApplier btn btn-secondary">Заполнить заявку</button>
-                <button type="button" onClick={this.checkAdmin} className="buttonNewApplier btn btn-secondary">проверка</button>
+                <button type="button" onClick={this.applyToOpenWay} className="buttonNewApplier btn btn-secondary">Заполнить заявку</button>
             </div>
         );
     }

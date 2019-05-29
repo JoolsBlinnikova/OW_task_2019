@@ -84,6 +84,7 @@ class Application extends Component {
                 })
             }
         )
+        alert("Все данные будут сохранены!")
     }
 
     componentDidMount() {
