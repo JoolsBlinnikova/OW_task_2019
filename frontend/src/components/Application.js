@@ -11,7 +11,7 @@ class Application extends Component {
             email: '',
             birth_date: '',
             phone: '',
-            analysis: false,
+            analysis: '',
             back: false,
             front: false,
             testing: false,
