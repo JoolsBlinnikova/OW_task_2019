@@ -2,7 +2,6 @@ package openway.service;
 
 import openway.model.Form;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public interface FormService {

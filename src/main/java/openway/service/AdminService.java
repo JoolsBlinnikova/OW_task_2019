@@ -1,8 +1,7 @@
 package openway.service;
-import openway.model.Admin;
-import openway.model.Form;
+import openway.model.dto.AdminVO;
 
 public interface AdminService {
-    Admin getByLogin(String login);
-
+    boolean authentication(String auth);
+    AdminVO getAdminVO(String adminJson);
 }
