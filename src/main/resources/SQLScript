@@ -1,0 +1,43 @@
+create table admins
+(
+  id_admin int auto_increment
+    primary key,
+  login    varchar(60)  not null,
+  password varchar(100) not null,
+  constraint login_UNIQUE
+    unique (login)
+);
+
+create table forms
+(
+  id_client       int auto_increment
+    primary key,
+  first_name      varchar(45)  not null,
+  last_name       varchar(45)  not null,
+  email           varchar(45)  null,
+  birth_date      varchar(45)  null,
+  phone           varchar(45)  null,
+  analysis        tinyint      null,
+  back            tinyint      null,
+  front           tinyint      null,
+  testing         tinyint      null,
+  workdoc         tinyint      null,
+  software        tinyint      null,
+  fintech         tinyint      null,
+  workdb          tinyint      null,
+  clientssupport  tinyint      null,
+  marketing       tinyint      null,
+  compsecurity    tinyint      null,
+  other           tinyint      null,
+  comment         varchar(300) null,
+  about_knowledge varchar(300) null,
+  open_house      tinyint      null,
+  university      varchar(45)  null,
+  faculty         varchar(45)  null,
+  department      varchar(45)  null,
+  year_admission  varchar(45)  null,
+  english_level   varchar(45)  null,
+  experience      varchar(300) null,
+  how_know        varchar(45)  null,
+  agree           tinyint      null
+);

@@ -19,7 +19,6 @@ public class Admin {
     private int id_admin;
     private String login;
     private String password;
-    private String role;
 
     public Admin() {
     }
@@ -28,6 +27,5 @@ public class Admin {
         this.id_admin = id_admin;
         this.login = login;
         this.password = password;
-        this.role = role;
     }
 }
