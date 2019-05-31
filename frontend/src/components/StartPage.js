@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './../css/StartPage.css';
 import startLogo from './startlogo.png';
-import {removePropertiesDeep} from "@babel/types";
+import NavbarComp from "./NavbarComp";
 
 class StartPage extends Component {
 
@@ -17,7 +17,6 @@ class StartPage extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.applyToOpenWay = this.applyToOpenWay.bind(this);
     }
 
     handleChange(event) {
@@ -49,16 +48,12 @@ class StartPage extends Component {
     componentDidMount() {
     }
 
-    applyToOpenWay(event) {
-        event.preventDefault();
-        window.location = "/appliers"
-    }
-
     render() {
         const {login, password} = this.state;
 
         return (
             <div>
+                <NavbarComp/>
                 <img src={startLogo} className="startLogo" height="150"/>
                 <form className="formLogin" onSubmit={this.handleSubmit}>
                     <input className="input" type="text" placeholder="login" name="login"
@@ -71,7 +66,6 @@ class StartPage extends Component {
                     <input type="submit" name="buttonLogin" className="input btn btn-secondary"
                            value="Войти как администратор"/>
                 </form>
-                <button type="button" onClick={this.applyToOpenWay} className="buttonNewApplier btn btn-secondary">Заполнить заявку</button>
             </div>
         );
     }

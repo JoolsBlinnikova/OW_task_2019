@@ -3,9 +3,15 @@ package openway.mapper;
 import openway.model.Form;
 import openway.model.dto.FormVO;
 
+/**
+ * Сlass for object interration
+ *
+ * @author Jools
+ * @version 1.0 *
+ */
 public class Mapper {
 
-    public static Form formVOToForm(FormVO formVO){
+    public static Form formVOToForm(FormVO formVO) {
         if (formVO == null)
             return null;
         Form form = new Form();
@@ -40,6 +46,4 @@ public class Mapper {
 
         return form;
     }
-
-
 }

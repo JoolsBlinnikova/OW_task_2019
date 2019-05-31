@@ -10,18 +10,41 @@ import org.springframework.stereotype.Service;
 
 import java.util.logging.Logger;
 
+/**
+ * Class implementing ${@link AdminService}
+ *
+ * @author Jools
+ * @version 1.0
+ */
 @Service
 public class AdminServiceImpl implements AdminService {
 
-    private final AdminRepository adminRepository;
-
+    /**
+     * Apache log4j object is used to log all important info
+     */
     final static private Logger logger = Logger.getLogger(AdminServiceImpl.class.getName());
 
+    /**
+     * Admin repository object
+     */
+    private final AdminRepository adminRepository;
+
+    /**
+     * Constructor
+     *
+     * @param adminRepository admin repository object
+     */
     @Autowired
     public AdminServiceImpl(AdminRepository adminRepository) {
         this.adminRepository = adminRepository;
     }
 
+    /**
+     * Parse json and get admin information
+     *
+     * @param adminJson json with admin info
+     * @return admin value object
+     */
     @Override
     public AdminVO getAdminVO(String adminJson) {
         logger.info("called getAdminVO()");
@@ -31,6 +54,12 @@ public class AdminServiceImpl implements AdminService {
         return adminVO;
     }
 
+    /**
+     * check entered data(login and password) from start page
+     *
+     * @param auth info with entered login and password
+     * @return false - if login and password incorrect, true - admin authenticated
+     */
     @Override
     public boolean authentication(String auth) {
         logger.info("called authentication()");

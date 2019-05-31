@@ -4,6 +4,12 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * Entity class for application
+ *
+ * @author Jools
+ * @version 1.0
+ */
 @Data
 @Entity
 @Table(name = "forms")
@@ -39,7 +45,6 @@ public class Form {
     private String experience;
     private String how_know;
     private boolean agree;
-
 
     public Form() {
     }

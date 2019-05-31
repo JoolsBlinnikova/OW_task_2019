@@ -7,19 +7,21 @@ import NotFound from './components/NotFound';
 import StartPage from './components/StartPage'
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Switch>
-            <Route exact path="/login"
-                   render={() => <StartPage/>}
-            />
-            <Route exact path="/admin"
-                   render={() => <Info/>}
-            />
-            <Route exact path="/appliers"
-                   render={() => <Application/>}
-            />
-            <Route component={NotFound}/>
-        </Switch>
-    </BrowserRouter>,
+    <div>
+        <BrowserRouter>
+            <Switch>
+                <Route exact path="/"
+                       render={() => <StartPage/>}
+                />
+                <Route exact path="/admin"
+                       render={() => <Info/>}
+                />
+                <Route exact path="/appliers"
+                       render={() => <Application/>}
+                />
+                <Route component={NotFound}/>
+            </Switch>
+        </BrowserRouter>
+    </div>,
     document.getElementById('root')
 );

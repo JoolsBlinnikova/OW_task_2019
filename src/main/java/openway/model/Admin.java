@@ -4,6 +4,12 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * Entity class for admins
+ *
+ * @author Jools
+ * @version 1.0
+ */
 @Data
 @Entity
 @Table(name = "admins")

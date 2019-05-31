@@ -5,13 +5,14 @@ import {
     TableHeaderColumn
 } from 'react-bootstrap-table';
 import '../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css'
-
+import NavbarComp from "./NavbarComp";
 
 class Info extends Component {
     constructor(props) {
         super(props);
         this.state = {
             id: '',
+            isContentShown: false,
             data: [],
             forms: [],
             listId: [],
@@ -44,8 +45,8 @@ class Info extends Component {
             experience: '',
             how_know: '',
             agree: false
-
         };
+
         this.handleChange = this.handleChange.bind(this);
         this.getListOfId = this.getListOfId.bind(this);
         this.addDataToTheTable = this.addDataToTheTable.bind(this);
@@ -64,11 +65,12 @@ class Info extends Component {
             .then(data => {
                 let idFromDB = data.map(id => {
                     return {value: id, display: id}
-                })
-                this.setState({listId: [{value: '', display: 'Select id_client'}].concat(idFromDB)});
+                });
+                this.setState({listId: [{value: 'all', display: 'Select id'}].concat(idFromDB)});
             }).catch(error => {
             console.log(error);
         });
+
     }
 
     getForms() {
@@ -76,7 +78,11 @@ class Info extends Component {
             .then(resp => {
                 return resp.json()
             })
-            .then(resp => this.setState({forms: resp}))
+            .then(resp => this.setState(
+                {
+                    forms: resp,
+                    isContentShown: true
+                }))
             .catch(error => {
                 console.log(error);
             });
@@ -88,15 +94,15 @@ class Info extends Component {
         this.getListOfId();
         let array = [];
         let textOfInterests = '';
-        let textOpenHouse ='Нет'
+        let textOpenHouse = 'Нет'
         for (let i = 0; i < this.state.forms.length; i++) {
             if (this.state.id == this.state.forms[i].id_client) {
                 if (this.state.forms[i].analysis === true)
-                    textOfInterests += "Бизнес-анализ, IT-консалтинг; \n";
+                    textOfInterests += "Бизнес-анализ, IT-консалтинг; ";
                 if (this.state.forms[i].back === true)
                     textOfInterests += "Backend-разработка; ";
                 if (this.state.forms[i].front === true)
-                    textOfInterests += "Frontend-разработка; ";
+                    textOfInterests += "Frontend-разработка;  ";
                 if (this.state.forms[i].testing === true)
                     textOfInterests += "Тестирование, управление качеством; ";
                 if (this.state.forms[i].workdoc === true)
@@ -114,9 +120,8 @@ class Info extends Component {
                 if (this.state.forms[i].compsecurity === true)
                     textOfInterests += "Компьютерная безопасность; ";
                 if (this.state.forms[i].other === true)
-                    textOfInterests += "Другое; ";
-
-                if(this.state.forms[i].open_house === true)
+                    textOfInterests += "Другое; "
+                if (this.state.forms[i].open_house === true)
                     textOpenHouse = "Да";
 
                 array.push({
@@ -138,95 +143,115 @@ class Info extends Component {
                     experience: this.state.forms[i].experience,
                     how_know: this.state.forms[i].how_know
                 });
-                console.log(textOfInterests);
             }
         }
-        this.setState({data: array});
+
+        this.setState({
+            data: array,
+            isContentShown: true
+        });
     }
 
     render() {
         const {id} = this.state;
         return (
-            <div className="infoForm">
-                <div className="getInfo">
-                    <button onClick={this.getForms} class="btn btn-secondary">Получить информацию</button>
-                    <text className="selectId">Выбрать заявку по id:</text>
-                    <select name="id" value={id} onChange={this.handleChange}
-                            onClick={this.addDataToTheTable}>
-                        {this.state.listId.map((id) => <option key={id.value}
-                                                               value={id.value}>{id.display}</option>)}
-                    </select>
+            <div>
+                <NavbarComp/>
+                <div className="infoForm">
+                    <div className="getInfo">
+                        <button onClick={this.getForms} class="btn btn-secondary btn-lg">Получить информацию</button>
+                        <br/>
+                        {this.state.isContentShown &&
+                        <text className="selectId">Выбрать заявку по</text>
+                        }
+                        {this.state.isContentShown &&
+                        <select name="id" className="form-control dark" value={id} onChange={this.handleChange}
+                                onClick={this.addDataToTheTable}>
+                            {this.state.listId.map((id) => <option key={id.value}
+                                                                   value={id.value}>{id.display}</option>)}
+                        </select>
+                        }
+                    </div>
+                    {this.state.isContentShown &&
+                    <BootstrapTable data={this.state.data} headerAlign='left'>
+                        <TableHeaderColumn isKey dataField='id'>
+                            ID
+                        </TableHeaderColumn>
+                        <TableHeaderColumn dataField='first_name'>
+                            Имя
+                        </TableHeaderColumn>
+                        <TableHeaderColumn dataField='last_name'>
+                            Фамилия
+                        </TableHeaderColumn>
+                        <TableHeaderColumn dataField='email'>
+                            Email
+                        </TableHeaderColumn>
+                        <TableHeaderColumn dataField='birth_date'>
+                            Дата Рождения
+                        </TableHeaderColumn>
+                        <TableHeaderColumn dataField='phone'>
+                            Мобильный телефон
+                        </TableHeaderColumn>
+                    </BootstrapTable>
+                    }
+                    <br/>
+                    <br/>
+                    {this.state.isContentShown &&
+                    <BootstrapTable data={this.state.data}>
+                        <TableHeaderColumn isKey dataField='interests'>
+                            Интересы
+                        </TableHeaderColumn>
+                    </BootstrapTable>
+                    }
+                    <br/>
+                    <br/>
+                    {this.state.isContentShown &&
+                    <BootstrapTable data={this.state.data}>
+                        <TableHeaderColumn isKey dataField='comment'>
+                            Комментарии
+                        </TableHeaderColumn>
+                        <TableHeaderColumn dataField='about_knowledge'>
+                            Знания
+                        </TableHeaderColumn>
+                        <TableHeaderColumn dataField='open_house'>
+                            Будет ли на дне открытых дверей
+                        </TableHeaderColumn>
+                    </BootstrapTable>
+                    }
+                    <br/>
+                    <br/>
+                    {this.state.isContentShown &&
+                    <BootstrapTable data={this.state.data}>
+                        <TableHeaderColumn isKey dataField='university'>
+                            Университет
+                        </TableHeaderColumn>
+                        <TableHeaderColumn dataField='faculty'>
+                            Факультет
+                        </TableHeaderColumn>
+                        <TableHeaderColumn dataField='department'>
+                            Кафедра
+                        </TableHeaderColumn>
+                        <TableHeaderColumn dataField='year_admission'>
+                            Год поступления
+                        </TableHeaderColumn>
+                    </BootstrapTable>
+                    }
+                    <br/>
+                    <br/>
+                    {this.state.isContentShown &&
+                    <BootstrapTable data={this.state.data}>
+                        <TableHeaderColumn isKey dataField='english_level'>
+                            Уровень английского
+                        </TableHeaderColumn>
+                        <TableHeaderColumn dataField='experience'>
+                            Опыт
+                        </TableHeaderColumn>
+                        <TableHeaderColumn dataField='how_know'>
+                            Откуда узнали о летней школе
+                        </TableHeaderColumn>
+                    </BootstrapTable>
+                    }
                 </div>
-
-                <BootstrapTable data={this.state.data} headerAlign='left'>
-                    <TableHeaderColumn isKey dataField='id'>
-                        ID
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField='first_name'>
-                        Имя
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField='last_name'>
-                        Фамилия
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField='email'>
-                        Email
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField='birth_date'>
-                        Дата Рождения
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField='phone'>
-                        Мобильный телефон
-                    </TableHeaderColumn>
-                </BootstrapTable>
-                <br/>
-                <br/>
-                <BootstrapTable data={this.state.data}>
-                    <TableHeaderColumn isKey dataField='interests'>
-                        Интересы
-                    </TableHeaderColumn>
-                </BootstrapTable>
-                <br/>
-                <br/>
-                <BootstrapTable data={this.state.data}>
-                    <TableHeaderColumn isKey dataField='comment'>
-                        Комментарии
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField='about_knowledge'>
-                        Знания
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField='open_house'>
-                        Будет ли на дне открытых дверей
-                    </TableHeaderColumn>
-                </BootstrapTable>
-                <br/>
-                <br/>
-                <BootstrapTable data={this.state.data}>
-                    <TableHeaderColumn isKey dataField='university'>
-                        Университет
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField='faculty'>
-                        Факультет
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField='department'>
-                        Кафедра
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField='year_admission'>
-                        Год поступления
-                    </TableHeaderColumn>
-                </BootstrapTable>
-                <br/>
-                <br/>
-                <BootstrapTable data={this.state.data}>
-                    <TableHeaderColumn isKey dataField='english_level'>
-                        Уровень английского
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField='experience'>
-                        Опыт
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField='how_know'>
-                        Откуда узнали о летней школе
-                    </TableHeaderColumn>
-                </BootstrapTable>
             </div>
         );
     }

@@ -2,6 +2,12 @@ package openway.model.dto;
 
 import lombok.Data;
 
+/**
+ * Class FormVO used for transfer application data
+ *
+ * @author Jools
+ * @version 1.0 *
+ */
 @Data
 public class FormVO {
     private String first_name;
@@ -34,12 +40,12 @@ public class FormVO {
     private boolean agree;
 
     public FormVO(String first_name, String last_name, String email, String birth_date, String phone,
-                boolean analysis, boolean back, boolean front, boolean testing, boolean workdoc,
-                boolean software, boolean fintech, boolean workdb, boolean clientssupport,
-                boolean marketing, boolean compsecurity, boolean other, String comment,
-                String about_knowledge, boolean open_house, String university, String faculty,
-                String department, String year_admission, String english_level, String experience,
-                String how_know, boolean agree) {
+                  boolean analysis, boolean back, boolean front, boolean testing, boolean workdoc,
+                  boolean software, boolean fintech, boolean workdb, boolean clientssupport,
+                  boolean marketing, boolean compsecurity, boolean other, String comment,
+                  String about_knowledge, boolean open_house, String university, String faculty,
+                  String department, String year_admission, String english_level, String experience,
+                  String how_know, boolean agree) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;

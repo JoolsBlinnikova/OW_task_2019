@@ -12,23 +12,39 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.List;
 
+/**
+ * Class implementing ${@link FormService}
+ *
+ * @author Jools
+ * @version 1.0
+ */
 @Service
 public class FormServiceImpl implements FormService {
+    /**
+     * Apache log4j object is used to log all important info
+     */
     final static private Logger logger = Logger.getLogger(FormServiceImpl.class.getName());
 
+    /**
+     * Form repository object
+     */
     private final FormRepository formRepository;
 
+    /**
+     * Constructor
+     *
+     * @param formRepository form repository object
+     */
     @Autowired
     public FormServiceImpl(FormRepository formRepository) {
         this.formRepository = formRepository;
     }
 
-    @Override
-    public Form getFormById(Integer id_client) {
-        logger.info("get form by id=" + id_client + " (called getFormById)");
-        return formRepository.getOne(id_client);
-    }
-
+    /**
+     * Create new application
+     *
+     * @param newForm information about applier
+     */
     @Override
     public void createNewForm(String newForm) {
         logger.info("called createNewForm() then parse json");
@@ -40,27 +56,22 @@ public class FormServiceImpl implements FormService {
         logger.info("save to database:" + newForm);
     }
 
-    @Override
-    public void deleteItem(Integer id) {
-        logger.info("called deleteItem()");
-        Form formItem = getFormById(id);
-        formRepository.delete(formItem);
-        logger.info("delete application № " + id);
-    }
-
-    @Override
-    public void deleteAll() {
-        logger.info("called deleteAll()");
-        formRepository.deleteAll();
-        logger.info("delete all applications");
-    }
-
+    /**
+     * Get list with all applications
+     *
+     * @return list of applications
+     */
     @Override
     public List<Form> findAll() {
         logger.info("find all applications (called findAll())");
         return formRepository.findAll();
     }
 
+    /**
+     * Get list with id of all appliers
+     *
+     * @return list with id appliers
+     */
     @Override
     public List<Integer> listOfIdClients() {
         logger.info("called listOfClients()");
